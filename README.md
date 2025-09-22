@@ -34,7 +34,7 @@ Um sistema de **Cardápio Digital** que permite que **administradores** cadastre
 
 2. Acesse a pasta do projeto:
    ```bash
-   cd cardapio-digital
+   cd MenuGo
 
 3. Instalar dependencias:
    ```bash
