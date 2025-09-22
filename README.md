@@ -30,4 +30,16 @@ Um sistema de **Cardápio Digital** que permite que **administradores** cadastre
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/cardapio-digital.git
+   git clone https://github.com/cauabrenno/MenuGo.git
+
+2. Acesse a pasta do projeto:
+   ```bash
+   cd cardapio-digital
+
+3. Instalar dependencias:
+   ```bash
+    npm install
+
+4. Iniciar Servidor:
+   ```bash
+    npm start
