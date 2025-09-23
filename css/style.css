@@ -2,6 +2,13 @@
 
 body{
     font-family: "Poppins", sans-serif;
+    background-color: rgb(19, 19, 19);
+  }
+
+h2 {
+  margin: 20px;
+  color: #fff;
+
 }
 
 * {
@@ -11,7 +18,7 @@ body{
 }
 
 header {
-  background-color: aqua;
+  background-color: #a7a7a7;
   display: flex;                 /* coloca tudo em linha */
   justify-content: space-between; /* espaço entre os itens */
   align-items: center;           /* centraliza na vertical */
@@ -39,7 +46,93 @@ header nav ul {
   gap: 10px;
 }
 
-header .carrinho button {
-  padding: 5px 10px;
+/* Container dos produtos */
+.produtos {
+  display: flex;
+  flex-direction: row; /* garante que fique em linha */
+  gap: 20px;          /* espaço entre os cards */
+  justify-content: center; /* centraliza na tela */
+  flex-wrap: wrap;    /* quebra linha se a tela for pequena */
+  padding: 20px;
+}
+
+/* Card do produto */
+.produto {
+  background: #d9d9d9; /* cinza claro */
+  border-radius: 12px;
+  padding: 15px;
+  width: 220px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+/* Imagem do produto */
+.produto img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  background: #222; /* placeholder caso a img não carregue */
+}
+
+/* Nome do produto */
+.produto h3 {
+  font-size: 16px;
+  margin: 10px 0 5px 0;
+  font-weight: bold;
+}
+
+/* Preço antigo */
+.preco-antigo {
+  text-decoration: line-through;
+  color: #333;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Preço novo */
+.preco-novo {
+  color: #00b050; /* verde */
+  font-weight: bold;
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Selo de desconto */
+.desconto {
+  background: #7fe08b;
+  color: #222;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  position: absolute;
+  right: 15px;
+  bottom: 65px;
+}
+
+/* Botão */
+.produto button {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 10px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.produto button:hover {
+  background: #333;
+}
+
+.final{
+  color: #fff;
+  background-color: #a7a7a7;
+  height: 100px;
+  padding: 20px;
+  text-align: center;  
 }
