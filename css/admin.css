@@ -3,30 +3,33 @@ body{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
 
-}
-.cabecalho {
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    background-color: #b1b1b1;
-    padding: 5px;
-    text-align: left;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.cabecalho img {
-    align-self: center;
-    width: 70px;
-    height: 65px;
-    margin-right: 5px;
+}
+header {
+    background-color: #a7a7a7;
+  display: flex;                 /* coloca tudo em linha */
+  justify-content: space-between; /* espaço entre os itens */
+  align-items: center;           /* centraliza na vertical */
+  padding: 10px 20px; 
 }
 
-.cabecalho h1 {
+header .logo img {
+    width: 80px;
+  height: auto;
+    
+}
+
+ h1 {
     background: 10px;
     color: rgb(19, 19, 19);
-    align-self: center;
-    margin: 10px;
 }
 
-.cabecalho button {
+.suporte {
     
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
@@ -40,7 +43,6 @@ body{
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin-left: 1100px;
 }
 
 .adicionar-prato {
@@ -51,8 +53,8 @@ body{
     justify-content: center;
     height: 60px;
     width: 100%;
-
 }
+
 .inserir {
     margin-left: 35%;
     margin-top: 30px;
