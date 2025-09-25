@@ -6,8 +6,8 @@ body{
     font-family: "Poppins", sans-serif;
     background-color: rgb(19, 19, 19);
     height: 100vh;
-    align-items: center; /* centraliza vertical */
-    justify-content: center; /* centraliza horizontal */
+    align-items: center;
+    justify-content: center; 
   }
 
 * {
@@ -17,7 +17,7 @@ body{
 }
 
 header {
-    background-color: #a7a7a7;
+  background-color: #a7a7a7;
   display: flex;                 /* coloca tudo em linha */
   justify-content: space-between; /* espaço entre os itens */
   align-items: center;           /* centraliza na vertical */
@@ -209,4 +209,38 @@ header .logo img {
   align-items: center;           /* centraliza na vertical */
   padding: 10px 20px;
   position: relative; 
+}
+
+.nomes {
+  color: #fff;
+}
+
+.redes nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.insta,
+.whats,
+.logofinal {
+  height: 40px;
+  width: auto;   
+}
+
+.insta {
+    height: 30px;
+}
+
+.whats {
+    height: 50px;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.logofinal {
+    width: 70px;
+    height: auto;
 }
