@@ -98,7 +98,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: goldenrod; /* Mesmo efeito de hover */
+    background-color: #d72e2e; /* Mesmo efeito de hover */
 }
 
 header {
@@ -121,3 +121,5 @@ header .logo img {
   width: 180px;
   height: auto;
 }
+
+
