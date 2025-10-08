@@ -179,3 +179,25 @@ button {
 
 .btn-editar { color: goldenrod; }
 .btn-remover { color: firebrick; }
+
+
+header {
+  background-color: #a7a7a7;
+  display: flex;                 /* coloca tudo em linha */
+  justify-content: space-between; /* espaço entre os itens */
+  align-items: center;           /* centraliza na vertical */
+  padding: 10px 20px;   
+}
+
+.left,
+.direita{ 
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Controla o espaço APENAS ENTRE os itens dentro do grupo */
+}
+
+
+header .logo img {
+  width: 190px;
+  height: auto;
+}

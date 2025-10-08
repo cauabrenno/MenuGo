@@ -1,11 +1,12 @@
 [
   {
-    "id": 1,
-    "nome": "Lasanha de Carne",
-    "preco": 20,
+    "nome": "Lasanha de boi",
     "categoria": "Lasanha",
+    "preco": 20,
+    "precoAntigo": null,
+    "ingredientes": "Massa fresca, carne moída artesanal, queijo muçarela, parmesão e molho branco.",
     "imagem": "imgs/lasanha_carne.jpg",
-    "ingredientes": "Massa fresca, carne moída artesanal, queijo muçarela, parmesão e molho branco."
+    "id": 1
   },
   {
     "id": 2,
