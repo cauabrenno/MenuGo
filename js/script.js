@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===================================================
 
     // Seleciona os botões de filtro e todos os produtos
-    const botoesFiltro = document.querySelectorAll('.filtro-btn'); // Verifique se a classe dos seus botões é "filtro-btn"
+const botoesFiltro = document.querySelectorAll('.menucategoria button');
     const produtos = document.querySelectorAll('.produto');
 
     botoesFiltro.forEach(function(botao) {
