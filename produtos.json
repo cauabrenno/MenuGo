@@ -1,27 +1,29 @@
 [
   {
-    "nome": "Lasanha de boi",
+    "nome": "Lasanha de Carne ",
     "categoria": "Lasanha",
     "preco": 20,
-    "precoAntigo": null,
+    "precoAntigo": 34,
     "ingredientes": "Massa fresca, carne moída artesanal, queijo muçarela, parmesão e molho branco.",
     "imagem": "imgs/lasanha_carne.jpg",
     "id": 1
   },
   {
-    "id": 2,
     "nome": "Lasanha a Bolonhesa",
-    "preco": 20,
     "categoria": "Lasanha",
+    "preco": 20,
+    "precoAntigo": 40,
+    "ingredientes": "Massa fresca, molho à bolonhesa artesanal, queijo muçarela, parmesão e molho branco.",
     "imagem": "imgs/lasanha-a-bolonhesa.jpg",
-    "ingredientes": "Massa fresca, molho à bolonhesa artesanal, queijo muçarela, parmesão e molho branco."
+    "id": 2
   },
   {
-    "id": 3,
     "nome": "Coca-cola 1L",
-    "preco": 9,
-    "imagem": "imgs/coca1l.jpg",
     "categoria": "Bebidas",
-    "ingredientes": "Coca-Cola em garrafa de 1L, gelada."
+    "preco": 9,
+    "precoAntigo": 12,
+    "ingredientes": "Coca-Cola em garrafa de 1L, gelada.",
+    "imagem": "imgs/coca1l.jpg",
+    "id": 3
   }
 ]

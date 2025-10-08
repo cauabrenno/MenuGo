@@ -92,8 +92,8 @@ input[type="number"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: goldenrod;
-    box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
+    border-color: #d72e2e;
+    box-shadow: 0 0 5px rgb(178, 34, 34, 0.8);
 }
 
 textarea {
@@ -119,7 +119,7 @@ button {
 }
 
 #btn-salvar:hover {
-    background-color: goldenrod;
+    background-color: #d72e2e;
 }
 
 .btn-cancelar {
