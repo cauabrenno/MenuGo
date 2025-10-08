@@ -3,12 +3,23 @@
 body{
     font-family: "Poppins", sans-serif;
     background-color: rgb(19, 19, 19);
+     min-height: 100%; /* Garante que o body ocupe no mínimo a altura total da tela */
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna (header, main, footer) */
   }
+
+  main {
+  flex-grow: 1; /* Faz o conteúdo principal crescer e empurrar o rodapé para baixo */
+}
 
 h2 {
   margin: 20px;
   color: #fff;
 
+}
+
+html {
+  height: 100%;
 }
 
 * {
@@ -22,8 +33,16 @@ header {
   display: flex;                 /* coloca tudo em linha */
   justify-content: space-between; /* espaço entre os itens */
   align-items: center;           /* centraliza na vertical */
-  padding: 10px 20px;             /* espaço interno */
+  padding: 10px 20px;   
 }
+
+.left,
+.direita{ 
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Controla o espaço APENAS ENTRE os itens dentro do grupo */
+}
+
 
 header .logo img {
   width: 80px;
@@ -40,10 +59,39 @@ header .relogio img{
     width: 30px;
 }
 
-header nav ul {
-  list-style: none;
+
+.menucategoria{
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   gap: 10px;
+  padding: 20px 0px;
+}
+
+.menucategoria button{
+  padding: 10px 15px;
+  border-radius: 0px;
+  cursor: pointer;
+  border-radius: 7px;
+  color: white;
+  background-color:firebrick ;
+  border: none;
+}
+
+.menucategoria button:hover{
+  background-color: goldenrod;
+}   
+
+
+
+.carrinho img{
+  width: 40px;
+  height: auto;
+}
+
+.admin img{
+    width: 40px;
+  height: auto;
 }
 
 /* Container dos produtos */
@@ -137,13 +185,11 @@ header nav ul {
 }
 
 .rodapé {
-  margin-top: 30px;
   background-color: #a7a7a7;
   display: flex;                 /* coloca tudo em linha */
   justify-content: space-between; /* espaço entre os itens */
   align-items: center;           /* centraliza na vertical */
   padding: 10px 20px;
-  position: relative; 
 }
 
 .nomes {
@@ -162,6 +208,7 @@ header nav ul {
 .logofinal {
   height: 40px;
   width: auto;   
+  justify-content: center;
 }
 
 .insta {
