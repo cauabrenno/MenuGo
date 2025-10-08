@@ -50,26 +50,24 @@
 
             <div class="produtos">
 
-                <article class="produto">
-                    <img src="imgs/prato1.jpg" alt="Arroz com frango">
-                    <h3>Arroz com frango</h3>
+                <article class="produto" data-categora="Lasanha"
+                    data-ingredientes="Massa fresca de espinafre, molho à bolonhesa artesanal, queijo muçarela, queijo parmesão e molho branco.">
+                    <img src="imgs/lasanha _carne.jpg" alt="Lasanha de Carne">
+                    <h3>Lasanha de Carne</h3>
                     <p class="preco-antigo">R$ 34,90</p>
                     <p class="preco-novo">R$ 20,00</p>
                     <span class="desconto">-42%</span>
                     <button>Adicionar ao Carrinho</button>
                 </article>
 
-                <article class="produto">
-                    <img src="imgs/prato2.jpg" alt="Arroz com frango">
-                    <h3>Arroz com frango</h3>
+                <article class="produto" data-categora="Lasanha">
+                    <img src="imgs/lasanha-a-bolonhesa.jpg" alt="Lasanha a lasanha-a-bolonhesa">
+                    <h3>Lasanha a Bolonhesa</h3>
                     <p class="preco-antigo">R$ 34,90</p>
                     <p class="preco-novo">R$ 20,00</p>
                     <span class="desconto">-42%</span>
                     <button>Adicionar ao Carrinho</button>
                 </article>
-
-
-
 
             </div>
 
@@ -97,7 +95,20 @@
 
     </footer>
 
-
+    <div id="modal-container" class="modal-overlay">
+        <div class="modal-conteudo">
+            <button class="modal-fechar" id="modal-fechar-btn">X</button>
+            <img id="modal-img" src="" alt="Imagem do produto" class="modal-imagem">
+            <div class="modal-info">
+                <h2 id="modal-titulo">Nome do Produto</h2>
+                <p id="modal-ingredientes">Aqui vão os ingredientes...</p>
+                <p id="modal-preco">R$ 00,00</p>
+                <button class="modal-add-carrinho">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
 
 </body>
 

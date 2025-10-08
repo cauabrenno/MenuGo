@@ -226,3 +226,76 @@ header .relogio img{
     width: 70px;
     height: auto;
 }
+
+
+/* O FUNDO ESCURO QUE COBRE A PÁGINA */
+.modal-overlay {
+    position: fixed; /* Fica fixo na tela mesmo com rolagem */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Cor preta com 70% de opacidade */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que fique na frente de tudo */
+
+    /* Por padrão, o modal começa escondido */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+/* CLASSE QUE O JAVASCRIPT VAI ADICIONAR PARA MOSTRAR O MODAL */
+.modal-overlay.aberto {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* O CONTEÚDO BRANCO DO MODAL */
+.modal-conteudo {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px; /* Largura máxima */
+    position: relative; /* Para o botão de fechar funcionar */
+    display: flex;
+    gap: 20px;
+}
+
+/* ESTILOS INTERNOS DO MODAL */
+.modal-imagem {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.modal-info h2 {
+    margin-top: 0;
+    color: #333; /* Cor escura para o texto no fundo branco */
+}
+
+.modal-info p {
+    color: #666;
+}
+
+.modal-info #modal-preco {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00b050; /* Verde */
+}
+
+/* BOTÃO DE FECHAR (X) */
+.modal-fechar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
