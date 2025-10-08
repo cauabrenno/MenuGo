@@ -1,56 +1,123 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // --- VARIÁVEIS GLOBAIS ---
+    let todosOsProdutos = []; // Guarda a lista completa de produtos vinda do servidor
+    let carrinho = [];
 
-    // ===================================================
-    // PARTE 1: LÓGICA DO FILTRO DE CATEGORIAS
-    // ===================================================
+    // --- SELETORES DE ELEMENTOS FIXOS ---
+    const containerProdutos = document.querySelector('.produtos');
     const botoesFiltro = document.querySelectorAll('.menucategoria button');
-    const produtos = document.querySelectorAll('.produto');
+    const modalContainer = document.getElementById('modal-container');
+    const carrinhoContainerEl = document.getElementById('carrinho-container');
+    const listaCarrinho = document.getElementById('lista-carrinho');
 
-    botoesFiltro.forEach(function(botao) {
-        botao.addEventListener('click', function() {
-            const categoriaFiltro = botao.getAttribute('data-filter');
-            produtos.forEach(function(produto) {
-                const categoriaProduto = produto.getAttribute('data-categoria');
-                if (categoriaFiltro === 'Todos' || categoriaProduto === categoriaFiltro) {
-                    produto.classList.remove('escondido');
-                } else {
-                    produto.classList.add('escondido');
-                }
+    // ===================================================
+    // FUNÇÃO PRINCIPAL PARA RENDERIZAR OS PRODUTOS
+    // ===================================================
+    function renderizarProdutos(produtosParaRenderizar) {
+        if (!containerProdutos) return; // Garante que o container existe
+        containerProdutos.innerHTML = ''; // Limpa o container antes de adicionar os novos produtos
+        
+        if (produtosParaRenderizar.length === 0) {
+            containerProdutos.innerHTML = '<p style="color: white; text-align: center;">Nenhum produto encontrado.</p>';
+            return;
+        }
+
+        produtosParaRenderizar.forEach(produto => {
+            const precoAntigoHTML = produto.precoAntigo ? `<p class="preco-antigo">R$ ${produto.precoAntigo.toFixed(2)}</p>` : '';
+            const desconto = produto.precoAntigo && produto.preco < produto.precoAntigo ? Math.round(((produto.precoAntigo - produto.preco) / produto.precoAntigo) * 100) : 0;
+            const descontoHTML = desconto > 0 ? `<span class="desconto">-${desconto}%</span>` : '';
+
+            const produtoHTML = `
+                <article class="produto" 
+                         data-categoria="${produto.categoria}"
+                         data-ingredientes="${produto.ingredientes || ''}"
+                         data-id="${produto.id}" 
+                         data-nome="${produto.nome}" 
+                         data-preco="${produto.preco}"
+                         data-imagem="${produto.imagem}"
+                         data-preco-antigo="${produto.precoAntigo || ''}">
+
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <h3>${produto.nome}</h3>
+                    ${precoAntigoHTML}
+                    <p class="preco-novo">R$ ${produto.preco.toFixed(2)}</p>
+                    ${descontoHTML}
+                    <button class="add-carrinho-btn">Adicionar ao Carrinho</button>
+                </article>
+            `;
+            containerProdutos.innerHTML += produtoHTML;
+        });
+
+        // Após renderizar, precisamos reativar todos os eventos dos produtos
+        anexarEventListenersDosProdutos();
+    }
+    
+    // ===================================================
+    // FUNÇÃO PARA ANEXAR TODOS OS EVENT LISTENERS DOS PRODUTOS
+    // ===================================================
+    function anexarEventListenersDosProdutos() {
+        // --- LÓGICA DO MODAL ---
+        const todosOsCards = document.querySelectorAll('.produto');
+        todosOsCards.forEach(produto => {
+            produto.addEventListener('click', function(event) {
+                if (event.target.tagName === 'BUTTON') return;
+                
+                const id = this.getAttribute('data-id');
+                const nome = this.getAttribute('data-nome');
+                const preco = this.getAttribute('data-preco');
+                
+                modalContainer.setAttribute('data-id-atual', id);
+                modalContainer.setAttribute('data-nome-atual', nome);
+                modalContainer.setAttribute('data-preco-atual', preco);
+
+                document.getElementById('modal-img').src = this.getAttribute('data-imagem');
+                document.getElementById('modal-titulo').textContent = nome;
+                document.getElementById('modal-ingredientes').textContent = this.getAttribute('data-ingredientes') || "Ingredientes não informados.";
+                document.getElementById('modal-preco').textContent = `R$ ${parseFloat(preco).toFixed(2)}`;
+                
+                modalContainer.classList.add('aberto');
             });
         });
-    });
+
+        // --- LÓGICA DE ADICIONAR AO CARRINHO ---
+        const botoesAdicionar = document.querySelectorAll('.add-carrinho-btn');
+        botoesAdicionar.forEach(botao => {
+            botao.addEventListener('click', function() {
+                const produtoCard = botao.closest('.produto');
+                const id = produtoCard.getAttribute('data-id');
+                const nome = produtoCard.getAttribute('data-nome');
+                const preco = parseFloat(produtoCard.getAttribute('data-preco'));
+                adicionarAoCarrinho(id, nome, preco);
+            });
+        });
+    }
 
     // ===================================================
-    // PARTE 2: LÓGICA DO MODAL DE DETALHES DO PRODUTO
+    // LÓGICA DO FILTRO (AGORA USA O ARRAY DE PRODUTOS)
     // ===================================================
-    const modalContainer = document.getElementById('modal-container');
-    const modalFecharBtn = document.getElementById('modal-fechar-btn');
-    const modalImg = document.getElementById('modal-img');
-    const modalTitulo = document.getElementById('modal-titulo');
-    const modalIngredientes = document.getElementById('modal-ingredientes');
-    const modalPreco = document.getElementById('modal-preco');
+    botoesFiltro.forEach(botao => {
+        botao.addEventListener('click', function() {
+            const categoriaFiltro = botao.getAttribute('data-filter');
+            let produtosFiltrados;
 
-    produtos.forEach(produto => {
-        produto.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON') return;
-            const id = this.getAttribute('data-id');
-            const nome = this.getAttribute('data-nome');
-            const preco = this.getAttribute('data-preco');
-            modalContainer.setAttribute('data-id-atual', id);
-            modalContainer.setAttribute('data-nome-atual', nome);
-            modalContainer.setAttribute('data-preco-atual', preco);
-            modalImg.src = this.querySelector('img').src;
-            modalTitulo.textContent = this.querySelector('h3').textContent;
-            modalIngredientes.textContent = this.getAttribute('data-ingredientes') || "Ingredientes não informados.";
-            modalPreco.textContent = this.querySelector('.preco-novo').textContent;
-            modalContainer.classList.add('aberto');
+            if (categoriaFiltro === 'Todos') {
+                produtosFiltrados = todosOsProdutos;
+            } else {
+                produtosFiltrados = todosOsProdutos.filter(produto => produto.categoria === categoriaFiltro);
+            }
+            renderizarProdutos(produtosFiltrados);
         });
     });
 
+    // ===================================================
+    // TODAS AS FUNÇÕES E EVENTOS FIXOS
+    // ===================================================
+
+    // --- FUNÇÕES DO MODAL ---
+    const modalFecharBtn = document.getElementById('modal-fechar-btn');
     function fecharModal() {
         modalContainer.classList.remove('aberto');
     }
-
     modalFecharBtn.addEventListener('click', fecharModal);
     modalContainer.addEventListener('click', function(event) {
         if (event.target === modalContainer) {
@@ -58,27 +125,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ===================================================
-    // PARTE 3: LÓGICA DO CARRINHO DE COMPRAS
-    // ===================================================
-    let carrinho = [];
-    const botoesAdicionar = document.querySelectorAll('.add-carrinho-btn');
-    const carrinhoContainerEl = document.getElementById('carrinho-container');
-    const botaoAbrirCarrinho = document.querySelector('.carrinho a');
-    const listaCarrinho = document.getElementById('lista-carrinho');
-
-    botoesAdicionar.forEach(botao => {
-        botao.addEventListener('click', function() {
-            const produtoCard = botao.closest('.produto');
-            const id = produtoCard.getAttribute('data-id');
-            const nome = produtoCard.getAttribute('data-nome');
-            const preco = parseFloat(produtoCard.getAttribute('data-preco'));
-            adicionarAoCarrinho(id, nome, preco);
-        });
-    });
-
+    // --- FUNÇÕES DO CARRINHO ---
     function adicionarAoCarrinho(id, nome, preco) {
-        const itemExistente = carrinho.find(item => item.id === id);
+        const itemExistente = carrinho.find(item => item.id == id); // Usar == para comparar string com número se necessário
         if (itemExistente) {
             itemExistente.quantidade++;
         } else {
@@ -86,18 +135,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         atualizarCarrinhoVisual();
     }
-    
-    // --- NOVO: Funções para aumentar e diminuir quantidade ---
+
     function aumentarQuantidade(id) {
-        const item = carrinho.find(item => item.id === id);
-        if (item) {
-            item.quantidade++;
-        }
+        const item = carrinho.find(item => item.id == id);
+        if (item) item.quantidade++;
         atualizarCarrinhoVisual();
     }
 
     function diminuirQuantidade(id) {
-        const item = carrinho.find(item => item.id === id);
+        const item = carrinho.find(item => item.id == id);
         if (item) {
             item.quantidade--;
             if (item.quantidade === 0) {
@@ -109,35 +155,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function removerDoCarrinho(id) {
-        carrinho = carrinho.filter(item => item.id !== id);
+        carrinho = carrinho.filter(item => item.id != id);
         atualizarCarrinhoVisual();
     }
-
-    // --- ATUALIZADO: Event listener do carrinho para incluir + e - ---
-    listaCarrinho.addEventListener('click', function(event) {
-        const target = event.target;
-        const id = target.getAttribute('data-id');
-
-        if (id) { // Só executa se o elemento clicado tiver um data-id
-            event.stopPropagation();
-            if (target.classList.contains('remover-item-btn')) {
-                removerDoCarrinho(id);
-            } else if (target.classList.contains('btn-aumentar')) {
-                aumentarQuantidade(id);
-            } else if (target.classList.contains('btn-diminuir')) {
-                diminuirQuantidade(id);
-            }
-        }
-    });
     
-    // --- ATUALIZADO: Função visual para incluir os controles de quantidade ---
     function atualizarCarrinhoVisual() {
         const contadorItens = document.getElementById('contador-itens');
         const precoTotalEl = document.getElementById('preco-total');
         const contadorIcone = document.getElementById('carrinho-contador-icone');
 
         if (!listaCarrinho) return;
-
         listaCarrinho.innerHTML = '';
         let totalItens = 0;
         let precoTotal = 0;
@@ -180,6 +207,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // --- EVENT LISTENERS FIXOS (CARRINHO E MODAL) ---
+    listaCarrinho.addEventListener('click', function(event) {
+        const target = event.target;
+        const id = target.getAttribute('data-id');
+        if (id) {
+            event.stopPropagation();
+            if (target.classList.contains('remover-item-btn')) removerDoCarrinho(id);
+            else if (target.classList.contains('btn-aumentar')) aumentarQuantidade(id);
+            else if (target.classList.contains('btn-diminuir')) diminuirQuantidade(id);
+        }
+    });
+
+    const botaoAbrirCarrinho = document.querySelector('.carrinho a');
     botaoAbrirCarrinho.addEventListener('click', function(event) {
         event.preventDefault();
         carrinhoContainerEl.classList.toggle('aberto');
@@ -203,4 +243,23 @@ document.addEventListener('DOMContentLoaded', function() {
         carrinhoContainerEl.classList.add('aberto');
     });
 
+
+    // ===================================================
+    // PONTO DE PARTIDA: BUSCA OS PRODUTOS NO SERVIDOR
+    // ===================================================
+    fetch('/api/produtos')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(produtosDoServidor => {
+            todosOsProdutos = produtosDoServidor;
+            renderizarProdutos(todosOsProdutos);
+        })
+        .catch(error => {
+            console.error('Erro ao buscar produtos:', error);
+            if(containerProdutos) containerProdutos.innerHTML = '<p style="color: white; text-align: center;">Erro ao carregar produtos. Verifique se o servidor está rodando.</p>';
+        });
 });
