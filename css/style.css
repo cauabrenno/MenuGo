@@ -82,8 +82,6 @@ header .relogio img{
   background-color: goldenrod;
 }   
 
-
-
 .carrinho img{
   width: 40px;
   height: auto;
@@ -118,7 +116,7 @@ header .relogio img{
 /* Imagem do produto */
 .produto img {
   width: 100%;
-  height: 150px;
+  height: 180px;
   object-fit: cover;
   border-radius: 15px;
   background: #222; /* placeholder caso a img não carregue */
@@ -320,3 +318,99 @@ header .relogio img{
 .escondido{
   display: none;
 }
+
+
+/* Container principal do carrinho */
+#carrinho-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #f1f1f1;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1001; /* Fica na frente do modal */
+    
+    /* Começa escondido fora da tela */
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Classe que o JS vai usar para mostrar o carrinho */
+#carrinho-container.aberto {
+    transform: translateX(0);
+}
+
+#carrinho-container h2 {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+/* Lista de itens */
+#lista-carrinho {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1; /* Faz a lista ocupar o espaço disponível */
+    overflow-y: auto; /* Adiciona barra de rolagem se os itens passarem da altura */
+}
+
+/* Item individual no carrinho */
+.item-carrinho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-info {
+    font-size: 14px;
+}
+
+.item-info span {
+    display: block;
+    color: #777;
+}
+
+.item-preco {
+    font-weight: bold;
+}
+
+.remover-item-btn {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.carrinho-total {
+    border-top: 2px solid #ddd;
+    padding-top: 15px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-finalizar{
+   background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-finalizar:hover{
+    background: #333;
+} 

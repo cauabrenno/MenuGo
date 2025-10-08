@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardapio Digital</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="imgs/logo cardápio.png">
 </head>
 
 <body>
@@ -17,26 +18,33 @@
                     <img src="imgs/logo cardápio.png" alt="Logo da empresa">
                 </figure>
             </div>
-
             <h1>MenuGO</h1>
         </div>
 
-
         <div class="direita">
             <div class="carrinho">
-                <a href=""><img src="imgs/carrinho-de-compras.png" alt="carrinho-de-compras"></a>
+                <a href="#"><img src="imgs/carrinho-de-compras.png" alt="carrinho-de-compras"></a>
             </div>
-
             <div class="admin">
-                <a href="Admin.html"><img src="imgs/admin.png" alt=""></a>
+                <a href="Admin.html"><img src="imgs/admin.png" alt="Painel do Administrador"></a>
             </div>
         </div>
-
-
     </header>
+    
+    <div id="carrinho-container">
+        <h2>Meu Carrinho (<span id="contador-itens">0</span>)</h2>
+        <ul id="lista-carrinho">
+            <li class="carrinho-vazio">Seu carrinho está vazio.</li>
+        </ul>
+        <div class="carrinho-total">
+            <strong>Total:</strong>
+            <span id="preco-total">R$ 0,00</span>
+        </div>
+        <button class="btn-finalizar">Finalizar Compra</button>
+    </div>
+
 
     <main>
-
         <h2>Nosso Cardápio</h2>
 
         <div class="menucategoria">
@@ -47,44 +55,63 @@
         </div>
 
         <section>
-
             <div class="produtos">
 
-                <article class="produto" data-categoria="Lasanha">
+                <article class="produto" 
+                         data-categoria="Lasanha"
+                         data-ingredientes="Massa fresca, carne moída artesanal, queijo muçarela, parmesão e molho branco."
+                         data-id="1" 
+                         data-nome="Lasanha de Carne" 
+                         data-preco="20.00">
+
                     <img src="imgs/lasanha _carne.jpg" alt="Lasanha de Carne">
                     <h3>Lasanha de Carne</h3>
                     <p class="preco-antigo">R$ 34,90</p>
                     <p class="preco-novo">R$ 20,00</p>
                     <span class="desconto">-42%</span>
-                    <button>Adicionar ao Carrinho</button>
+                    <button class="add-carrinho-btn">Adicionar ao Carrinho</button>
                 </article>
 
-                <article class="produto" data-categoria="Lasanha"    
-                    data-ingredientes="Massa fresca de espinafre, molho à bolonhesa artesanal, queijo muçarela, queijo parmesão e molho branco.">
-                    <img src="imgs/lasanha-a-bolonhesa.jpg" alt="Lasanha a lasanha-a-bolonhesa">
+                <article class="produto" 
+                         data-categoria="Lasanha"
+                         data-ingredientes="Massa fresca, molho à bolonhesa artesanal, queijo muçarela, parmesão e molho branco."
+                         data-id="2" 
+                         data-nome="Lasanha a Bolonhesa" 
+                         data-preco="20.00">
+
+                    <img src="imgs/lasanha-a-bolonhesa.jpg" alt="Lasanha a bolonhesa">
                     <h3>Lasanha a Bolonhesa</h3>
                     <p class="preco-antigo">R$ 34,90</p>
                     <p class="preco-novo">R$ 20,00</p>
                     <span class="desconto">-42%</span>
-                    <button>Adicionar ao Carrinho</button>
+                    <button class="add-carrinho-btn">Adicionar ao Carrinho</button>
+                </article>
+
+                <article class="produto" 
+                         data-categoria="Bebidas"
+                         data-ingredientes="Coca-Cola em lata de 350ml, gelada."
+                         data-id="3" 
+                         data-nome="Coca-Cola 1L" 
+                         data-preco="9.00">
+                         
+                    <img src="imgs/coca1l.jpg" alt="Coca-cola 1L">
+                    <h3>Coca-Cola 1L</h3>
+                    <p class="preco-antigo">R$ 14,90</p>
+                    <p class="preco-novo">R$ 9,00</p>
+                    <span class="desconto">-42%</span>
+                    <button class="add-carrinho-btn">Adicionar ao Carrinho</button>
                 </article>
 
             </div>
-
         </section>
-
     </main>
 
 
     <footer class="rodapé">
-
-        <footer>&copy; 2025 Cauã e Klaus</footer>
-
-        <div class="redes">
+        <p>&copy; 2025 Cauã e Klaus</p> <div class="redes">
             <nav>
                 <a href="#">
-                    <img src="imgs/72-723063_resultado-de-imagem-para-logo-do-instagram-vetor.png" alt="insta"
-                        class="insta">
+                    <img src="imgs/72-723063_resultado-de-imagem-para-logo-do-instagram-vetor.png" alt="insta" class="insta">
                 </a>
                 <a href="#">
                     <img src="imgs/whatsapp-black-icon.png" alt="whats" class="whats">
@@ -92,9 +119,8 @@
                 <img src="imgs/logo cardápio.png" alt="logo" class="logofinal">
             </nav>
         </div>
-
     </footer>
-
+    
     <div id="modal-container" class="modal-overlay">
         <div class="modal-conteudo">
             <button class="modal-fechar" id="modal-fechar-btn">X</button>
@@ -107,9 +133,8 @@
             </div>
         </div>
     </div>
+
     <script src="js/script.js"></script>
 </body>
 
-</body>
-
-</html>
+</html> 
