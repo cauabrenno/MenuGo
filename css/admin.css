@@ -74,8 +74,8 @@ input[type="number"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: goldenrod; /* Mesma cor do hover dos botões */
-    box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
+    border-color: firebrick; /* Mesma cor do hover dos botões */
+    box-shadow: 0 0 3px rgba(178,34,34, 0.5);
 }
 
 textarea {
