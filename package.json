@@ -1,0 +1,23 @@
+{
+  "name": "menugo",
+  "version": "1.0.0",
+  "description": "Um sistema de **Cardápio Digital** que permite que **administradores** cadastrem novos pratos, editem e removam pratos existentes. Os **clientes** podem visualizar o cardápio atualizado em qualquer dispositivo, de forma simples e intuitiva.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cauabrenno/MenuGo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cauabrenno/MenuGo/issues"
+  },
+  "homepage": "https://github.com/cauabrenno/MenuGo#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

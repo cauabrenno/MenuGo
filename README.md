@@ -21,7 +21,7 @@ Um sistema de **Cardápio Digital** que permite que **administradores** cadastre
 ## 🛠️ Tecnologias Utilizadas
 - **HTML5** e **CSS3** → Estrutura e estilização.
 - **JavaScript** → Interatividade.
-- **Node.js / Express** (se usar back-end) → Gerenciamento de rotas e API.
+- **Node.js / Express** (Back-end) → Gerenciamento de rotas e API.
 - **Banco de Dados** (MySQL, PostgreSQL ou MongoDB) → Armazenamento dos pratos.
 
 ---
