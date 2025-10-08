@@ -49,15 +49,6 @@ header .logo img {
   height: auto;
 }
 
-header .relogio {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-header .relogio img{
-    width: 30px;
-}
 
 
 .menucategoria{

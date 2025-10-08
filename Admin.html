@@ -1,110 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adm</title>
+    <title>Painel de Administração</title>
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="icon" href="imgs/logo cardápio.png">
 </head>
 <body>
+
     <header>
+        <div class="left">
+            <div class="logo">
+                <figure>
+                    <a href="index.html"><img src="imgs/logo cardápio.png" alt="Logo da empresa"></a>
+                </figure>
+            </div>
 
-        <figure class="logo">
-            <a href="index.html">
-            <img src="imgs/logo cardápio.png" alt="logo do cardápio">
-            </a>
-        </figure>
-
-        <h1 class="MenuGo">
-            MenuGo
-        </h1>
-            
-            <button class="suporte">
-                <span>
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 0h24v24H0z" fill="none">
-                        </path>
-                        <path d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z" fill="currentColor">
-                        </path>
-                    </svg>
-                    suporte
-                </span>
-            </button>
+        </div>
     </header>
 
-    <section class="adicionar-prato">
-        <h1>Adicione um prato</h1>
-    </section>
+    <div class="admin-container">
 
-    <main class="inserir">
-    <div class="form-row">
-        <label for="nome">Nome do prato</label>
-        <div class="inputs">
-            <input type="text" id="nome" placeholder="Digite o nome do prato">
-            <input type="text" class="preco" placeholder="R$">
-        </div>
-    </div>
+        <h1>Adicionar Novo Produto</h1>
 
-    <div class="form-row">
-        <label for="ingredientes">Ingredientes</label>
-        <input type="text" id="ingredientes" placeholder="Digite os ingredientes do prato">
-    </div>
+        <form id="form-produto">
+            <div>
+                <label for="nome">Nome do Produto:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            
+            <div>
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecione uma categoria</option>
+                    <option value="Lasanha">Lasanha</option>
+                    <option value="Massas">Massas</option>
+                    <option value="Bebidas">Bebidas</option>
+                </select>
+            </div>
 
-    <div class="form-row">
-        <label for="comp1">Complemento 1</label>
-        <div class="inputs">
-            <input type="text" id="comp1" placeholder="Digite o complemento 1">
-            <input type="text" class="preco" placeholder="R$">
-        </div>
-    </div>
+            <div>
+                <label for="preco-atual">Preço Atual (ex: 29.90):</label>
+                <input type="number" id="preco-atual" name="preco-atual" step="0.01" min="0" required>
+            </div>
 
-    <div class="form-row">
-        <label for="comp2">Complemento 2</label>
-        <div class="inputs">
-            <input type="text" id="comp2" placeholder="Digite o complemento 2">
-            <input type="text" class="preco" placeholder="R$">
-        </div>
-    </div>
+            <div>
+                <label for="preco-antigo">Preço Antigo (Opcional):</label>
+                <input type="number" id="preco-antigo" name="preco-antigo" step="0.01" min="0">
+            </div>
 
-    <div class="form-row">
-        <label for="comp3">Complemento 3</label>
-        <div class="inputs">
-            <input type="text" id="comp3" placeholder="Digite o complemento 3">
-            <input type="text" class="preco" placeholder="R$">
-        </div>
-    </div>
+            <div>
+                <label for="ingredientes">Descrição / Ingredientes:</label>
+                <textarea id="ingredientes" name="ingredientes" rows="4"></textarea>
+            </div>
 
-    <div class="form-row">
-        <label for="comp4">Complemento 4</label>
-        <div class="inputs">
-            <input type="text" id="comp4" placeholder="Digite o complemento 4">
-            <input type="text" class="preco" placeholder="R$">
-        </div>
-    </div>
+            <div>
+                <label for="imagem">Caminho da Imagem (ex: imgs/nova-lasanha.jpg):</label>
+                <input type="text" id="imagem" name="imagem" required>
+            </div>
 
-    <div class="main-section">
-        <button class="first-button"> Adicionar prato </button>
-        <button class="second-button">
-            </svg> Tudo Pronto!
-        </button>
-    </div>
-    </main>
+            <button type="submit">Salvar Produto</button>
+        </form>
 
-    <footer class="rodapé">
-
-        <span class="nomes">&copy; 2025 Cauã e Klaus</span>
-
-        <div class="redes">
-            <nav>
-                <a href="#">
-                        <img src="imgs/72-723063_resultado-de-imagem-para-logo-do-instagram-vetor.png" alt="insta" class="insta"> 
-                </a>
-                <a href="#">
-                        <img src="imgs/whatsapp-black-icon.png" alt="whats" class="whats">
-                </a>
-                        <img src="imgs/logo cardápio.png" alt="logo" class="logofinal">
-            </nav>
-        </div>
-    </footer>
+    </div> <script src="js/admin-script.js"></script>
 </body>
 </html>
