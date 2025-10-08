@@ -74,12 +74,12 @@ header .relogio img{
   cursor: pointer;
   border-radius: 7px;
   color: white;
-  background-color:firebrick ;
+  background-color: #b22222 ;
   border: none;
 }
 
 .menucategoria button:hover{
-  background-color: goldenrod;
+  background-color: #d72e2e;
 }   
 
 .carrinho img{
@@ -173,13 +173,6 @@ header .relogio img{
 
 .produto button:hover {
   background: #333;
-}
-
-.final{
-  color: #fff;
-  background-color: #a7a7a7;
-  height: 100px;
-  padding: 20px;
 }
 
 .rodapé {
