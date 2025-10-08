@@ -5,73 +5,82 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-// --- Middlewares ---
-app.use(cors()); // Habilita o CORS para evitar erros de comunicação
-app.use(express.json()); // Habilita o servidor a entender JSON vindo do front-end
-app.use(express.static(__dirname)); // Habilita o servidor a entregar arquivos estáticos (index.html, css, js, imgs)
+app.use(cors());
+app.use(express.json());
+app.use(express.static(__dirname));
 
 const produtosFilePath = path.join(__dirname, 'produtos.json');
 
 // --- ROTAS DA API ---
 
-// ROTA PARA OBTER TODOS OS PRODUTOS (GET)
+// READ (GET) - Já tínhamos esta
 app.get('/api/produtos', (req, res) => {
     fs.readFile(produtosFilePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Erro ao ler o arquivo produtos.json na rota GET:', err);
-            return res.status(500).send('Erro ao ler o arquivo de produtos.');
-        }
-        try {
-            res.json(JSON.parse(data));
-        } catch (parseErr) {
-            console.error('Erro ao fazer o parse do JSON:', parseErr);
-            return res.status(500).send('Erro no formato do arquivo de produtos.');
-        }
+        if (err) { return res.status(500).send('Erro ao ler o arquivo de produtos.'); }
+        res.json(JSON.parse(data));
     });
 });
 
-// ROTA PARA ADICIONAR UM NOVO PRODUTO (POST) com depuração
+// CREATE (POST) - Já tínhamos esta
 app.post('/api/produtos', (req, res) => {
-    console.log('1. Rota POST /api/produtos foi acionada!'); // Migalha 1
-
     const novoProduto = req.body;
-    console.log('2. Dados recebidos do formulário:', novoProduto); // Migalha 2
-
-    // Verifica se o corpo da requisição está vazio
-    if (!novoProduto || Object.keys(novoProduto).length === 0) {
-        console.error('Erro: Nenhum dado foi recebido no corpo da requisição.');
-        return res.status(400).send('Erro: Nenhum dado recebido.');
-    }
-
     fs.readFile(produtosFilePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Erro ao ler o arquivo produtos.json na rota POST:', err);
-            return res.status(500).send('Erro ao ler o arquivo de produtos.');
-        }
-        
-        console.log('3. Arquivo produtos.json lido com sucesso.'); // Migalha 3
+        if (err) { return res.status(500).send('Erro ao ler o arquivo.'); }
         const produtos = JSON.parse(data);
-        
-        // Gera um novo ID único
         novoProduto.id = produtos.length > 0 ? Math.max(...produtos.map(p => p.id)) + 1 : 1;
         produtos.push(novoProduto);
-
         fs.writeFile(produtosFilePath, JSON.stringify(produtos, null, 2), (err) => {
-            if (err) {
-                console.error('Erro ao escrever no arquivo produtos.json:', err);
-                return res.status(500).send('Erro ao salvar o produto.');
-            }
-            
-            console.log('4. Novo produto salvo com sucesso no produtos.json!'); // Migalha 4
-            
-            // Envia a resposta de volta para o navegador
+            if (err) { return res.status(500).send('Erro ao salvar o produto.'); }
             res.status(201).json(novoProduto);
         });
     });
 });
 
-// --- Inicia o Servidor ---
+// --- NOVAS ROTAS ---
+
+// UPDATE (PUT) - Para editar um produto existente
+app.put('/api/produtos/:id', (req, res) => {
+    const idParaEditar = parseInt(req.params.id);
+    const dadosAtualizados = req.body;
+    fs.readFile(produtosFilePath, 'utf8', (err, data) => {
+        if (err) { return res.status(500).send('Erro ao ler o arquivo.'); }
+        let produtos = JSON.parse(data);
+        const indexDoProduto = produtos.findIndex(p => p.id === idParaEditar);
+
+        if (indexDoProduto === -1) {
+            return res.status(404).send('Produto não encontrado.');
+        }
+
+        // Atualiza o produto mantendo o ID original
+        produtos[indexDoProduto] = { ...dadosAtualizados, id: idParaEditar };
+
+        fs.writeFile(produtosFilePath, JSON.stringify(produtos, null, 2), (err) => {
+            if (err) { return res.status(500).send('Erro ao salvar as alterações.'); }
+            res.status(200).json(produtos[indexDoProduto]);
+        });
+    });
+});
+
+// DELETE (DELETE) - Para remover um produto
+app.delete('/api/produtos/:id', (req, res) => {
+    const idParaRemover = parseInt(req.params.id);
+    fs.readFile(produtosFilePath, 'utf8', (err, data) => {
+        if (err) { return res.status(500).send('Erro ao ler o arquivo.'); }
+        let produtos = JSON.parse(data);
+        const produtosFiltrados = produtos.filter(p => p.id !== idParaRemover);
+
+        if (produtos.length === produtosFiltrados.length) {
+            return res.status(404).send('Produto não encontrado.');
+        }
+
+        fs.writeFile(produtosFilePath, JSON.stringify(produtosFiltrados, null, 2), (err) => {
+            if (err) { return res.status(500).send('Erro ao remover o produto.'); }
+            res.status(200).send({ message: 'Produto removido com sucesso.' });
+        });
+    });
+});
+
+
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
-    console.log('Acesse seu cardápio nesta URL. Use a página admin.html para adicionar produtos.');
 });

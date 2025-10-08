@@ -12,35 +12,55 @@ body {
     font-family: "Poppins", sans-serif;
     background-color: rgb(19, 19, 19); /* Mesmo fundo escuro */
     color: #f0f0f0; /* Texto claro como padrão */
+    padding: 40px;
     display: flex;
     justify-content: center;
-    padding: 40px;
 }
 
-/* --- Container Principal --- */
-.admin-container {
-    width: 100%;
-    max-width: 600px; /* Limita a largura do formulário para melhor leitura */
-    background-color: #2a2a2a; /* Um cinza um pouco mais claro para o container */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-h1 {
+h1, h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #fff;
 }
 
+/* --- Layout Principal --- */
+.admin-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar em telas menores */
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.form-container {
+    flex: 1;
+    min-width: 350px; /* Largura mínima para o formulário */
+    background-color: #2a2a2a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    align-self: flex-start; /* Alinha o formulário ao topo */
+}
+
+.lista-container {
+    flex: 1;
+    min-width: 350px; /* Largura mínima para a lista */
+    background-color: #2a2a2a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-height: 85vh; /* Altura máxima com rolagem */
+    overflow-y: auto; /* Adiciona barra de rolagem se necessário */
+}
+
+
 /* --- Estilos do Formulário --- */
 #form-produto {
     display: flex;
-    flex-direction: column; /* Organiza os campos em coluna */
-    gap: 20px; /* Espaço entre cada campo */
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Div que agrupa cada label e input */
 #form-produto div {
     display: flex;
     flex-direction: column;
@@ -49,10 +69,9 @@ h1 {
 label {
     margin-bottom: 8px;
     font-weight: 500;
-    color: #a7a7a7; /* Cinza claro para os labels */
+    color: #a7a7a7;
 }
 
-/* Estilo unificado para todos os campos de entrada */
 input[type="text"],
 input[type="number"],
 select,
@@ -68,58 +87,95 @@ textarea {
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Efeito visual ao clicar no campo (foco) */
 input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: firebrick; /* Mesma cor do hover dos botões */
-    box-shadow: 0 0 3px rgba(178,34,34, 0.5);
+    border-color: goldenrod;
+    box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
 }
 
 textarea {
-    resize: vertical; /* Permite que o usuário redimensione a altura */
+    resize: vertical;
     min-height: 100px;
 }
 
-/* --- Estilo do Botão --- */
-button[type="submit"] {
+/* --- Estilos dos Botões --- */
+button {
     padding: 15px;
     border-radius: 7px;
     cursor: pointer;
     color: white;
-    background-color: firebrick; /* Mesma cor de botão da página principal */
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    margin-top: 10px; /* Espaço extra antes do botão */
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
-    background-color: #d72e2e; /* Mesmo efeito de hover */
+#btn-salvar {
+    background-color: firebrick;
+    font-size: 18px;
 }
 
-header {
-  background-color: #a7a7a7;
-  display: flex;                 /* coloca tudo em linha */
-  justify-content: space-between; /* espaço entre os itens */
-  align-items: center;           /* centraliza na vertical */
-  padding: 10px 20px;   
-  border-radius: 7px;
+#btn-salvar:hover {
+    background-color: goldenrod;
 }
 
-.left,
-.direita{ 
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Controla o espaço APENAS ENTRE os itens dentro do grupo */
+.btn-cancelar {
+    background-color: #555;
+    margin-top: 10px;
 }
 
-header .logo img {
-  width: 180px;
-  height: auto;
+.btn-cancelar:hover {
+    background-color: #777;
 }
 
 
+/* --- Estilos da Lista de Produtos --- */
+#lista-produtos-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.produto-item-admin {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #3c3c3c;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.produto-item-admin img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.produto-info-admin {
+    flex-grow: 1; /* Ocupa o espaço restante */
+}
+
+.produto-info-admin h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.produto-info-admin p {
+    margin: 0;
+    font-size: 14px;
+    color: #a7a7a7;
+}
+
+.produto-acoes-admin button {
+    background: none;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.btn-editar { color: goldenrod; }
+.btn-remover { color: firebrick; }

@@ -22,14 +22,5 @@
     "imagem": "imgs/coca1l.jpg",
     "categoria": "Bebidas",
     "ingredientes": "Coca-Cola em garrafa de 1L, gelada."
-  },
-  {
-    "nome": "Macarrão ao molho branco",
-    "categoria": "Lasanha",
-    "preco": 22.04,
-    "precoAntigo": 45.04,
-    "ingredientes": "oi",
-    "imagem": "imgs/macarrao.jpg",
-    "id": 4
   }
 ]
