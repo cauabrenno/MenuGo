@@ -365,6 +365,7 @@ header .relogio img{
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+    gap: 15px ;
 }
 
 .item-info {
@@ -398,6 +399,42 @@ header .relogio img{
     font-weight: bold;
 }
 
+/* Container para os controles de quantidade (+, -, número) */
+.item-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.item-quantidade button {
+    background-color: #ddd;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-quantidade button:hover {
+    background-color: #ccc;
+}
+
+.item-quantidade span {
+    font-size: 14px;
+    min-width: 20px; /* Garante um espaço mínimo para o número */
+    text-align: center;
+}
+
+/* Ajuste no item-info para acomodar os controles */
+.item-carrinho .item-info {
+    flex-grow: 1; /* Faz o nome do item ocupar o espaço disponível */
+}
+
 .btn-finalizar{
    background: #111;
   color: #fff;
@@ -414,3 +451,35 @@ header .relogio img{
 .btn-finalizar:hover{
     background: #333;
 } 
+
+/* Transforma o link do carrinho em um container para o contador */
+.carrinho a {
+    position: relative;
+    display: inline-block; /* Necessário para o position relative funcionar bem */
+}
+
+/* Estilo da "bolinha" do contador */
+#carrinho-contador-icone {
+    position: absolute;         /* Posiciona o contador em relação ao link (pai) */
+    top: 20px;                  /* Um pouco para cima */
+    right: 70px;                 /* Um pouco para a direita */
+    background-color: #ff4d4d;  /* Um vermelho chamativo */
+    color: white;               /* Texto branco */
+    border-radius: 50%;         /* Deixa completamente redondo */
+    width: 22px;                /* Largura fixa */
+    height: 22px;               /* Altura fixa */
+    font-size: 12px;            /* Tamanho da fonte do número */
+    font-weight: bold;          /* Deixa o número em negrito */
+    display: flex;              /* Usa flexbox para centralizar o número... */
+    justify-content: center;    /* ...horizontalmente */
+    align-items: center;        /* ...verticalmente */
+    
+    /* Começa escondido e com uma transição suave */
+    transform: scale(0);
+    transition: transform 0.2s ease-out;
+}
+
+/* Classe que vamos usar para mostrar o contador */
+#carrinho-contador-icone.visivel {
+    transform: scale(1); /* Faz ele aparecer com um efeito de "pop" */
+}

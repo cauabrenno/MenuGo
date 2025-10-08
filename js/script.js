@@ -30,33 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalIngredientes = document.getElementById('modal-ingredientes');
     const modalPreco = document.getElementById('modal-preco');
 
-    // CÓDIGO RESTAURADO: Lógica de abrir o modal
     produtos.forEach(produto => {
         produto.addEventListener('click', function(event) {
-            // Se o alvo do clique for um botão, não faz nada (impede o modal de abrir ao clicar em "Adicionar ao Carrinho")
             if (event.target.tagName === 'BUTTON') return;
-
-            // Pega os dados do produto clicado
             const id = this.getAttribute('data-id');
             const nome = this.getAttribute('data-nome');
             const preco = this.getAttribute('data-preco');
-
-            // Guarda os dados no próprio elemento do modal
             modalContainer.setAttribute('data-id-atual', id);
             modalContainer.setAttribute('data-nome-atual', nome);
             modalContainer.setAttribute('data-preco-atual', preco);
-
-            // Preenche o conteúdo visual do modal
             modalImg.src = this.querySelector('img').src;
             modalTitulo.textContent = this.querySelector('h3').textContent;
             modalIngredientes.textContent = this.getAttribute('data-ingredientes') || "Ingredientes não informados.";
             modalPreco.textContent = this.querySelector('.preco-novo').textContent;
-            
             modalContainer.classList.add('aberto');
         });
     });
 
-    // CÓDIGO RESTAURADO: Função de fechar o modal
     function fecharModal() {
         modalContainer.classList.remove('aberto');
     }
@@ -67,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
             fecharModal();
         }
     });
-
 
     // ===================================================
     // PARTE 3: LÓGICA DO CARRINHO DE COMPRAS
@@ -97,22 +86,55 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         atualizarCarrinhoVisual();
     }
-
-    listaCarrinho.addEventListener('click', function(event) {
-        if (event.target.classList.contains('remover-item-btn')) {
-            const idParaRemover = event.target.getAttribute('data-id');
-            removerDoCarrinho(idParaRemover);
+    
+    // --- NOVO: Funções para aumentar e diminuir quantidade ---
+    function aumentarQuantidade(id) {
+        const item = carrinho.find(item => item.id === id);
+        if (item) {
+            item.quantidade++;
         }
-    });
+        atualizarCarrinhoVisual();
+    }
+
+    function diminuirQuantidade(id) {
+        const item = carrinho.find(item => item.id === id);
+        if (item) {
+            item.quantidade--;
+            if (item.quantidade === 0) {
+                removerDoCarrinho(id);
+            } else {
+                atualizarCarrinhoVisual();
+            }
+        }
+    }
 
     function removerDoCarrinho(id) {
         carrinho = carrinho.filter(item => item.id !== id);
         atualizarCarrinhoVisual();
     }
 
+    // --- ATUALIZADO: Event listener do carrinho para incluir + e - ---
+    listaCarrinho.addEventListener('click', function(event) {
+        const target = event.target;
+        const id = target.getAttribute('data-id');
+
+        if (id) { // Só executa se o elemento clicado tiver um data-id
+            event.stopPropagation();
+            if (target.classList.contains('remover-item-btn')) {
+                removerDoCarrinho(id);
+            } else if (target.classList.contains('btn-aumentar')) {
+                aumentarQuantidade(id);
+            } else if (target.classList.contains('btn-diminuir')) {
+                diminuirQuantidade(id);
+            }
+        }
+    });
+    
+    // --- ATUALIZADO: Função visual para incluir os controles de quantidade ---
     function atualizarCarrinhoVisual() {
         const contadorItens = document.getElementById('contador-itens');
         const precoTotalEl = document.getElementById('preco-total');
+        const contadorIcone = document.getElementById('carrinho-contador-icone');
 
         if (!listaCarrinho) return;
 
@@ -126,13 +148,17 @@ document.addEventListener('DOMContentLoaded', function() {
             carrinho.forEach(item => {
                 const itemLi = document.createElement('li');
                 itemLi.classList.add('item-carrinho');
-                // CÓDIGO RESTAURADO: HTML do item do carrinho
                 itemLi.innerHTML = `
                     <div class="item-info">
                         ${item.nome}
-                        <span>Quantidade: ${item.quantidade}</span>
+                        <span>R$ ${item.preco.toFixed(2)} cada</span>
                     </div>
-                    <div class="item-preco">
+                    <div class="item-quantidade">
+                        <button class="btn-diminuir" data-id="${item.id}">-</button>
+                        <span>${item.quantidade}</span>
+                        <button class="btn-aumentar" data-id="${item.id}">+</button>
+                    </div>
+                    <div class="item-preco-total">
                         R$ ${(item.preco * item.quantidade).toFixed(2)}
                     </div>
                     <button class="remover-item-btn" data-id="${item.id}">&times;</button>
@@ -142,8 +168,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 precoTotal += item.preco * item.quantidade;
             });
         }
+        
         contadorItens.textContent = totalItens;
         precoTotalEl.textContent = `R$ ${precoTotal.toFixed(2)}`;
+        contadorIcone.textContent = totalItens;
+
+        if (totalItens > 0) {
+            contadorIcone.classList.add('visivel');
+        } else {
+            contadorIcone.classList.remove('visivel');
+        }
     }
 
     botaoAbrirCarrinho.addEventListener('click', function(event) {
@@ -152,13 +186,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.addEventListener('click', function(event) {
-        if (carrinhoContainerEl.classList.contains('aberto') && 
-            !carrinhoContainerEl.contains(event.target) && 
+        if (carrinhoContainerEl.classList.contains('aberto') &&
+            !carrinhoContainerEl.contains(event.target) &&
             !botaoAbrirCarrinho.contains(event.target)) {
             carrinhoContainerEl.classList.remove('aberto');
         }
     });
-    
+
     const botaoAdicionarModal = document.querySelector('.modal-add-carrinho');
     botaoAdicionarModal.addEventListener('click', function() {
         const id = modalContainer.getAttribute('data-id-atual');
@@ -168,4 +202,5 @@ document.addEventListener('DOMContentLoaded', function() {
         fecharModal();
         carrinhoContainerEl.classList.add('aberto');
     });
+
 });
