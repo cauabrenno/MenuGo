@@ -47,4 +47,4 @@ Um sistema de **Cardápio Digital** que permite que **administradores** cadastre
 ## Imagens
 
 ![Tela do cliente](<imgs/Captura de tela 2026-04-19 005001.png>)
-![Tela do Admin](imgs/Captura de tela 2026-04-19 005011.png)
+![Tela do Admin](<imgs/Captura de tela 2026-04-19 005011.png>)
