@@ -45,6 +45,7 @@ Um sistema de **Cardápio Digital** que permite que **administradores** cadastre
     npm start
 
 ## Imagens
-
+- Tela Cliente
 ![Tela do cliente](<imgs/Captura de tela 2026-04-19 005001.png>)
+- Tela Admin
 ![Tela do Admin](<imgs/Captura de tela 2026-04-19 005011.png>)
