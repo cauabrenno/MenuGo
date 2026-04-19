@@ -43,3 +43,8 @@ Um sistema de **Cardápio Digital** que permite que **administradores** cadastre
 4. Iniciar Servidor:
    ```bash
     npm start
+
+## Imagens
+
+![Tela do cliente](imgs/Captura de tela 2026-04-19 005001.png)
+![Tela do Admin](imgs/Captura de tela 2026-04-19 005011.png)
